@@ -28,7 +28,7 @@
       overflow-x: hidden;
     }
 
-    /* Arka plan canvas'ı tüm sayfanın arkasında */
+    /* Arka plan canvas'ı – RTX ışık efektleri */
     canvas#bgCanvas {
       position: fixed;
       inset: 0;
@@ -54,53 +54,26 @@
       margin-bottom: 24px;
     }
 
-  .logo-glass {
-  width: 120px;
-  height: 120px;
-  border-radius: 36px;
-  background: #050608;
-  border: 1.5px solid rgba(0,245,255,0.75);
-  box-shadow:
-    0 0 40px rgba(0,245,255,0.55),
-    0 0 90px rgba(0,255,163,0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 14px;
-}
-
-    .logo-img {
-  width: 110px;
-  height: 110px;
-  border-radius: 20px;
-}
-
-    .logo-icon {
-      width: 58px;
-      height: 58px;
-      border-radius: 20px;
-      background: radial-gradient(circle at 20% 0%, var(--accentB), var(--accentA));
-      box-shadow: 0 0 32px rgba(0,245,255,0.9);
-      position: relative;
-    }
-
-    .logo-icon::before {
-      content: "";
-      position: absolute;
-      inset: 9px;
-      border-radius: 16px;
-      border: 1.5px solid rgba(0,0,0,0.55);
-      box-shadow: inset 0 0 12px rgba(0,0,0,0.45);
-    }
-
-    .logo-foot {
-      position: absolute;
-      inset: 0;
+    .logo-glass {
+      width: 120px;
+      height: 120px;
+      border-radius: 36px;
+      background: #050608;
+      border: 1.5px solid rgba(0,245,255,0.75);
+      box-shadow:
+        0 0 40px rgba(0,245,255,0.55),
+        0 0 90px rgba(0,255,163,0.45);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
-      color: #ffffff;
+      margin-bottom: 14px;
+    }
+
+    .logo-img {
+      width: 110px;
+      height: 110px;
+      border-radius: 20px;
+      object-fit: contain;
     }
 
     .logo-title {
@@ -180,20 +153,23 @@
   </style>
 </head>
 <body>
+  <!-- RTX tarzı ışık efekti için canvas -->
   <canvas id="bgCanvas"></canvas>
 
   <div class="wrapper">
+    <!-- LOGO BLOĞU -->
     <div class="logo-block">
-      <div class="logo-block">
-  <div class="logo-glass">
-    <img src="ic_walk.png" alt="StepFit logo" class="logo-img" />
-  </div>
-  <h2 class="logo-title">StepFit</h2>
-  <p class="logo-subtitle">
-    Built to keep your daily movement visible, measurable and motivating.
-  </p>
-</div>
+      <div class="logo-glass">
+        <!-- ic_walk.png dosyan repo kökünde olmalı -->
+        <img src="ic_walk.png" alt="StepFit logo" class="logo-img" />
+      </div>
+      <h2 class="logo-title">StepFit</h2>
+      <p class="logo-subtitle">
+        Built to keep your daily movement visible, measurable and motivating.
+      </p>
+    </div>
 
+    <!-- ANA CARD -->
     <div class="card">
       <h1>Privacy Policy</h1>
       <div class="accent-bar"></div>
@@ -415,7 +391,6 @@
   window.addEventListener("resize", resize);
   resize();
 
-  // Az sayıda büyük ışık pulu
   const LIGHT_COUNT = 10;
   const lights = [];
 
@@ -425,11 +400,9 @@
       cy: Math.random() * h,
       baseAngle: Math.random() * Math.PI * 2,
       angle: 0,
-      // hareket yarıçapı: sahnenin genişliğine bağlı, genişçe geziyor
       radius: 50 + Math.random() * 180,
-      // ışık boyutu: ekranın %8 – %14’ü kadar
       size: (Math.min(w, h) * (0.08 + Math.random() * 0.06)),
-      speed: 0.0002 + Math.random() * 0.0004, // çok yavaş
+      speed: 0.0002 + Math.random() * 0.0004,
       offset: Math.random() * 3000
     });
   }
@@ -437,35 +410,25 @@
   function loop(timestamp) {
     ctx.clearRect(0, 0, w, h);
 
-    // Arka planı hafif koyu yapıp ışığın etkisini güçlendirelim
-    // (sayfanın kendi background'ına fazla dokunmuyoruz)
-    // ctx.fillStyle = "rgba(5, 6, 8, 0.1)";
-    // ctx.fillRect(0, 0, w, h);
-
     lights.forEach(l => {
-      // hafif dairesel + sinüs dalgalı hareket
       l.angle = l.baseAngle + timestamp * l.speed;
       const wave = Math.sin((timestamp + l.offset) * 0.0005) * 40;
 
       const x = l.cx + Math.cos(l.angle) * l.radius;
       const y = l.cy + Math.sin(l.angle) * l.radius + wave;
 
-      // ekran dışına çok taşarsa merkezini yenile (ışık hep yakınlarda dursun)
       if (x < -200 || x > w + 200 || y < -200 || y > h + 200) {
         l.cx = Math.random() * w;
         l.cy = Math.random() * h;
       }
 
       const r = l.size;
-
-      // RTX hissi için çok yumuşak, geniş radial gradient
       const grad = ctx.createRadialGradient(x, y, 0, x, y, r);
-      // merkez: parlak mavi-yeşil
       grad.addColorStop(0, "rgba(0, 245, 255, 0.85)");
       grad.addColorStop(0.35, "rgba(0, 245, 255, 0.35)");
       grad.addColorStop(1, "rgba(0, 245, 255, 0)");
 
-      ctx.globalCompositeOperation = "screen"; // ışıklar üst üste geldiğinde parlaklaşsın
+      ctx.globalCompositeOperation = "screen";
       ctx.fillStyle = grad;
       ctx.beginPath();
       ctx.arc(x, y, r, 0, Math.PI * 2);
