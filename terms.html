@@ -12,249 +12,371 @@
       --accentB: #00F5FF;
       --textMain: #FFFFFF;
       --textSub: #BFC4D0;
+      --borderSoft: #20232a;
     }
+
     * { box-sizing: border-box; }
-    body {
+
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         Roboto, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #111318 0, var(--bg) 55%);
+      background: radial-gradient(circle at top, #111318 0, var(--bg) 60%);
       color: var(--textMain);
+      overflow-x: hidden;
     }
+
+    canvas#bgCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     .wrapper {
-      max-width: 900px;
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 32px 18px 48px;
+      padding: 32px 18px 56px;
     }
+
+    .logo-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin-bottom: 24px;
+    }
+
+    .logo-glass {
+      width: 120px;
+      height: 120px;
+      border-radius: 36px;
+      background: radial-gradient(circle at 20% 0%, rgba(0,245,255,0.3), transparent 55%),
+                  #050608;
+      border: 1.5px solid rgba(0,245,255,0.65);
+      box-shadow:
+        0 0 40px rgba(0,245,255,0.45),
+        0 0 90px rgba(0,255,163,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .logo-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 20px;
+      background: radial-gradient(circle at 20% 0%, var(--accentB), var(--accentA));
+      box-shadow: 0 0 32px rgba(0,245,255,0.9);
+      position: relative;
+    }
+
+    .logo-icon::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border-radius: 16px;
+      border: 1.5px solid rgba(0,0,0,0.55);
+      box-shadow: inset 0 0 12px rgba(0,0,0,0.45);
+    }
+
+    .logo-foot {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: #ffffff;
+    }
+
+    .logo-title {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+
+    .logo-subtitle {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: #8e95a5;
+      text-align: center;
+    }
+
     .card {
       background: var(--card);
       border-radius: 24px;
-      border: 1px solid #20232a;
-      padding: 28px 22px 32px;
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--borderSoft);
+      padding: 26px 22px 32px;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.65);
     }
+
+    .accent-bar {
+      width: 80px;
+      height: 4px;
+      border-radius: 999px;
+      margin: 0 auto 24px;
+      background: linear-gradient(90deg, var(--accentA), var(--accentB));
+    }
+
     h1 {
-      font-size: 28px;
-      margin: 0 0 12px;
+      font-size: 24px;
+      margin: 0 0 10px;
       text-align: center;
     }
+
     h2 {
-      font-size: 20px;
-      margin: 28px 0 10px;
+      font-size: 19px;
+      margin: 26px 0 10px;
     }
+
     h3 {
       font-size: 16px;
-      margin: 20px 0 8px;
+      margin: 18px 0 8px;
     }
+
     p {
       font-size: 14px;
-      line-height: 1.65;
+      line-height: 1.7;
       color: var(--textSub);
       margin: 8px 0;
     }
+
     ul {
       padding-left: 20px;
       color: var(--textSub);
       font-size: 14px;
-      line-height: 1.65;
+      line-height: 1.7;
+      margin: 4px 0 10px;
     }
-    .accent-bar {
-      width: 72px;
-      height: 4px;
-      border-radius: 999px;
-      margin: 0 auto 22px;
-      background: linear-gradient(90deg, var(--accentA), var(--accentB));
-    }
+
+    strong { color: #e4e7f1; }
+
     .footer {
       margin-top: 26px;
       font-size: 12px;
       text-align: center;
       color: #8e95a5;
     }
+
+    @media (max-width: 600px) {
+      .wrapper { padding: 24px 12px 40px; }
+      .card { padding: 22px 16px 26px; }
+    }
   </style>
 </head>
 <body>
+  <canvas id="bgCanvas"></canvas>
+
   <div class="wrapper">
+    <div class="logo-block">
+      <div class="logo-glass">
+        <div class="logo-icon">
+          <div class="logo-foot">👣</div>
+        </div>
+      </div>
+      <h2 class="logo-title">StepFit</h2>
+      <p class="logo-subtitle">
+        Terms that keep your activity tracking clear and predictable.
+      </p>
+    </div>
+
     <div class="card">
-      <h1>StepFit Terms of Service</h1>
+      <h1>Terms of Service</h1>
       <div class="accent-bar"></div>
 
       <p>
         These Terms of Service (“Terms”) govern your use of
-        <strong>StepFit</strong> (“the App”), a pedometer and fitness
-        companion developed by <strong>Iman Mirzazadegan</strong>. By
-        installing or using StepFit you agree to be bound by these Terms.
+        <strong>StepFit</strong> (“the App”), a pedometer and fitness companion
+        developed by <strong>Iman Mirzazadegan</strong>. By installing or using
+        StepFit you agree to be bound by these Terms.
       </p>
 
       <h2>1. Purpose of the App</h2>
       <p>
-        StepFit is intended to help you monitor your daily activity
-        (primarily steps) and to support your personal fitness goals. The App
-        is not a medical device and does not provide medical advice. Any
-        information presented is for general wellness and motivational
+        StepFit is intended to help you monitor your daily activity, primarily
+        steps, and to support your personal fitness goals. The App is not a
+        medical device and does not provide medical advice or diagnoses. Any
+        information or metrics shown are for general wellness and motivational
         purposes only.
       </p>
 
-      <h2>2. Personal responsibility</h2>
+      <h2>2. Personal responsibility and health</h2>
       <p>
         You are solely responsible for your own health decisions and physical
         activity. Always consult a qualified healthcare professional before
         starting, changing or intensifying an exercise program, especially if
-        you have existing medical conditions or concerns.
+        you have existing medical conditions, are pregnant, or have concerns
+        about your health.
       </p>
       <p>
         StepFit cannot be held liable for injuries, health issues, or damages
-        that may occur as a result of following or ignoring activity signals
-        shown in the App.
+        that may occur as a result of following, misinterpreting, or ignoring
+        activity signals shown in the App.
       </p>
 
-      <h2>3. Use of the App</h2>
-
-      <h3>3.1 Acceptable use</h3>
-      <p>
-        You agree to use StepFit only for personal, non‑commercial purposes
-        and in accordance with all applicable laws and regulations. You may
-        not:
-      </p>
+      <h2>3. Acceptable use</h2>
+      <p>When using StepFit, you agree that you will not:</p>
       <ul>
-        <li>reverse engineer, modify or redistribute the App in an unauthorized way;</li>
-        <li>use the App to gain unfair advantage in competitions or rankings;</li>
-        <li>attempt to interfere with the normal operation of the App or its services.</li>
+        <li>
+          reverse engineer, decompile or attempt to extract the source code of
+          the App, except where allowed by applicable law;
+        </li>
+        <li>
+          circumvent security mechanisms, usage limits, or tamper with step
+          data for unfair advantage in competitions or challenges;
+        </li>
+        <li>
+          distribute modified versions of the App without the prior written
+          consent of the developer;
+        </li>
+        <li>
+          use the App for any unlawful, harmful or abusive activities.
+        </li>
       </ul>
 
-      <h3>3.2 Age requirements</h3>
+      <h2>4. Age requirements</h2>
       <p>
-        StepFit is not specifically directed at children under the age of 13.
-        If you are under 18, you should use the App only with the consent of
-        a parent or legal guardian.
+        StepFit is not specifically aimed at children under the age of 13. If
+        you are under 18 years old, you should only use the App with the
+        knowledge and consent of a parent or legal guardian, and they should
+        review these Terms and the Privacy Policy with you.
       </p>
 
-      <h2>4. Data and privacy</h2>
+      <h2>5. Data and privacy</h2>
       <p>
-        StepFit primarily stores your information locally on your device. No
-        central StepFit account is required. Details about the categories of
-        data and how they are handled can be found in the
+        StepFit primarily stores your data locally on your own device. No
+        central StepFit account is required. Details regarding the categories
+        of data and how they are handled are provided in the
         <strong>StepFit Privacy Policy</strong>, which forms part of these
         Terms.
       </p>
       <p>
-        By using StepFit you acknowledge that:
+        By using the App you acknowledge that:
       </p>
       <ul>
         <li>
-          your step and profile data may be processed on your device to
-          provide features such as goals, statistics and notifications;
+          your step counts, profile and configuration may be processed locally
+          to provide features such as history, goals and notifications;
         </li>
         <li>
-          when integrating with Health Connect, your data is additionally
-          subject to the policies and permissions of that platform.
+          when you enable Health Connect integration, your data is additionally
+          subject to that platform’s terms and privacy policies.
         </li>
       </ul>
 
-      <h2>5. Health Connect and third‑party platforms</h2>
+      <h2>6. Health Connect and third‑party platforms</h2>
       <p>
-        If you choose to connect StepFit with Health Connect or similar
-        platforms, you remain responsible for:
+        If you connect StepFit with Health Connect or other health platforms,
+        you remain responsible for reviewing and adjusting the permissions
+        requested by StepFit, including which data types can be read or
+        written.
       </p>
-      <ul>
-        <li>reviewing the permissions requested by StepFit,</li>
-        <li>configuring which data types can be read or written,</li>
-        <li>
-          managing or revoking access via the official settings of that
-          platform.
-        </li>
-      </ul>
       <p>
-        StepFit does not control or operate Health Connect or any other
-        third‑party platform. Their terms and policies apply independently of
-        these Terms.
+        StepFit does not operate Health Connect or other third‑party
+        ecosystems. Their terms, policies and technical limitations apply
+        independently of these Terms.
       </p>
 
-      <h2>6. Intellectual property</h2>
+      <h2>7. Intellectual property</h2>
       <p>
-        StepFit, including its design, graphics, icons, and code, is
+        StepFit, including its design, code, illustrations and icons, is
         protected by intellectual property laws. You are granted a
-        non‑exclusive, non‑transferable license to use the App on devices
-        that you own or control, solely for your personal use.
+        non‑exclusive, non‑transferable, revocable license to use the App on
+        devices that you own or control, solely for personal, non‑commercial
+        purposes.
       </p>
       <p>
-        You may not copy, modify, distribute, sell, or lease any part of the
-        App except as allowed by applicable law or with prior written
-        permission from the developer.
+        You may not copy, reproduce, modify, distribute, sell, lease or lend
+        any part of the App except where allowed by applicable law or with
+        prior written authorization from the developer.
       </p>
 
-      <h2>7. Changes, updates and availability</h2>
+      <h2>8. Changes, updates and availability</h2>
       <p>
-        StepFit may be updated from time to time to improve performance,
-        address bugs, adjust visuals, or add / remove features. We do not
-        guarantee that:
+        StepFit may be updated from time to time to improve performance, fix
+        issues, adapt to new platform requirements or introduce new features.
+        We do not guarantee that:
       </p>
       <ul>
-        <li>the App will always be available on all devices or platforms,</li>
-        <li>all historical data will be preserved across all updates,</li>
-        <li>any particular feature will remain available indefinitely.</li>
+        <li>the App will always be available on all devices or stores;</li>
+        <li>
+          any particular functionality (such as a specific widget layout)
+          will remain available indefinitely;
+        </li>
+        <li>
+          all historical data will always be preserved across every future
+          update or device migration.
+        </li>
       </ul>
-      <p>
-        You are responsible for installing updates to benefit from the latest
-        improvements and security fixes.
-      </p>
 
-      <h2>8. Disclaimer of warranty</h2>
+      <h2>9. Disclaimer of warranty</h2>
       <p>
         StepFit is provided on an <strong>“as is”</strong> and
-        <strong>“as available”</strong> basis. To the maximum extent permitted
+        <strong>“as available”</strong> basis. To the fullest extent permitted
         by law, the developer makes no warranties, express or implied,
-        including but not limited to warranties of merchantability, fitness
-        for a particular purpose, or non‑infringement.
+        including but not limited to warranties of merchantability, fitness for
+        a particular purpose, accuracy, or non‑infringement.
       </p>
       <p>
-        We do not warrant that:
+        In particular, we do not warrant that:
       </p>
       <ul>
         <li>
           the step count or other metrics will be perfectly accurate in all
-          conditions,
+          conditions or across all devices;
         </li>
-        <li>the App will operate without interruption, errors or defects,</li>
         <li>
-          any defects will be corrected within a specific timeframe, even
-          though we aim to improve the App continuously.
+          the App will operate without interruption, delays, bugs or other
+          technical issues;
+        </li>
+        <li>
+          every issue will be corrected within a specific timeframe.
         </li>
       </ul>
 
-      <h2>9. Limitation of liability</h2>
+      <h2>10. Limitation of liability</h2>
       <p>
         To the extent permitted by law, the developer of StepFit shall not be
         liable for any indirect, incidental, special, consequential or
         punitive damages, nor for any loss of data, revenue, profits or
-        reputation arising out of or related to your use of the App.
+        reputation arising out of or related to your use of (or inability to
+        use) the App.
       </p>
       <p>
         If, despite the above, liability is established, it shall be limited
-        to the amount (if any) paid by you for the use of the App, excluding
-        any hardware, data plans or third‑party services.
+        to the total amount (if any) that you have paid for using StepFit,
+        excluding device costs, data plans, or payments to third‑party
+        services.
       </p>
 
-      <h2>10. Termination</h2>
+      <h2>11. Termination</h2>
       <p>
         You may stop using StepFit at any time by uninstalling the App from
-        your device. We may suspend or discontinue the App or any part of it
-        at any time, with or without prior notice, for example if required by
-        technical, legal or platform‑policy reasons.
+        your device. We may suspend, restrict or discontinue the App, or any
+        part of it, at any time and for any reason, including but not limited
+        to technical, legal, or platform‑policy requirements.
       </p>
 
-      <h2>11. Changes to these Terms</h2>
+      <h2>12. Changes to these Terms</h2>
       <p>
-        These Terms may be updated to reflect new features, legal
-        requirements, or changes in distribution. When a new version is
-        published, your continued use of the App after the update becomes
-        effective will be considered acceptance of the revised Terms.
+        These Terms may be updated from time to time. When a new version is
+        published, your continued use of StepFit after the updated Terms
+        become effective will be interpreted as acceptance of the new version.
       </p>
 
-      <h2>12. Contact</h2>
+      <h2>13. Contact</h2>
       <p>
         If you have any questions about these Terms or about StepFit in
-        general, please contact the developer:
+        general, you may contact the developer:
       </p>
       <p>
         <strong>Developer:</strong> Iman Mirzazadegan<br />
@@ -266,5 +388,47 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const dots = [];
+    const DOT_COUNT = 40;
+    for (let i = 0; i < DOT_COUNT; i++) {
+      dots.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 1.5 + Math.random() * 2.5,
+        dx: (Math.random() - 0.5) * 0.05,
+        dy: (Math.random() - 0.5) * 0.05
+      });
+    }
+
+    function loop() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "rgba(0,245,255,0.55)";
+      dots.forEach(d => {
+        d.x += d.dx;
+        d.y += d.dy;
+        if (d.x < 0) d.x = w;
+        if (d.x > w) d.x = 0;
+        if (d.y < 0) d.y = h;
+        if (d.y > h) d.y = 0;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      requestAnimationFrame(loop);
+    }
+    loop();
+  </script>
 </body>
 </html>
