@@ -53,21 +53,28 @@
       margin-bottom: 24px;
     }
 
-    .logo-glass {
-      width: 120px;
-      height: 120px;
-      border-radius: 36px;
-      background: radial-gradient(circle at 20% 0%, rgba(0,245,255,0.3), transparent 55%),
-                  #050608;
-      border: 1.5px solid rgba(0,245,255,0.65);
-      box-shadow:
-        0 0 40px rgba(0,245,255,0.45),
-        0 0 90px rgba(0,255,163,0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-    }
+     .logo-glass {
+  width: 120px;
+  height: 120px;
+  border-radius: 36px;
+  background: #050608;
+  border: 1.5px solid rgba(0,245,255,0.75);
+  box-shadow:
+    0 0 40px rgba(0,245,255,0.55),
+    0 0 90px rgba(0,255,163,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+    .logo-img {
+  width: 110px;
+  height: 110px;
+  border-radius: 20px;
+}
+
+
 
     .logo-icon {
       width: 58px;
@@ -179,6 +186,7 @@
   <div class="wrapper">
     <div class="logo-block">
       <div class="logo-glass">
+        <img src="ic_walk.png" alt="StepFit logo" class="logo-img" />
         <div class="logo-icon">
           <div class="logo-foot">👣</div>
         </div>
@@ -390,45 +398,69 @@
   </div>
 
   <script>
-    const canvas = document.getElementById("bgCanvas");
-    const ctx = canvas.getContext("2d");
-    let w, h;
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resize);
-    resize();
+  // Küçük, parlak mavi, çok yumuşak ve yavaş hareket eden partiküller
+  const canvas = document.getElementById("bgCanvas");
+  const ctx = canvas.getContext("2d");
 
-    const dots = [];
-    const DOT_COUNT = 40;
-    for (let i = 0; i < DOT_COUNT; i++) {
-      dots.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: 1.5 + Math.random() * 2.5,
-        dx: (Math.random() - 0.5) * 0.05,
-        dy: (Math.random() - 0.5) * 0.05
-      });
-    }
+  let w, h;
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resize);
+  resize();
 
-    function loop() {
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "rgba(0,245,255,0.55)";
-      dots.forEach(d => {
-        d.x += d.dx;
-        d.y += d.dy;
-        if (d.x < 0) d.x = w;
-        if (d.x > w) d.x = 0;
-        if (d.y < 0) d.y = h;
-        if (d.y > h) d.y = 0;
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      requestAnimationFrame(loop);
-    }
-    loop();
-  </script>
+  const DOT_COUNT = 35; // daha az, temiz görüntü
+  const dots = [];
+
+  for (let i = 0; i < DOT_COUNT; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 30 + Math.random() * 110; // hareket yarıçapı
+    dots.push({
+      cx: Math.random() * w,
+      cy: Math.random() * h,
+      baseAngle: angle,
+      angle: angle,
+      radius: radius,
+      r: 1.2 + Math.random() * 1.6, // küçük ışık noktası
+      speed: 0.0004 + Math.random() * 0.0008, // çok yavaş
+      offset: Math.random() * 2000
+    });
+  }
+
+  function loop(timestamp) {
+    ctx.clearRect(0, 0, w, h);
+
+    dots.forEach(d => {
+      // dairesel + hafif sinüs dalgası
+      d.angle = d.baseAngle + timestamp * d.speed;
+      const wave = Math.sin((timestamp + d.offset) * 0.0012) * 8;
+
+      let x = d.cx + Math.cos(d.angle) * d.radius;
+      let y = d.cy + Math.sin(d.angle) * d.radius + wave;
+
+      // ekran dışına çok taşarsa merkezi yenile
+      if (x < -60 || x > w + 60 || y < -60 || y > h + 60) {
+        d.cx = Math.random() * w;
+        d.cy = Math.random() * h;
+      }
+
+      // parlak mavi küçük glow
+      const grad = ctx.createRadialGradient(x, y, 0, x, y, d.r * 5);
+      // merkez: parlak mavi, dışa doğru transparan
+      grad.addColorStop(0, "rgba(0, 245, 255, 0.9)");
+      grad.addColorStop(1, "rgba(0, 245, 255, 0)");
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(x, y, d.r * 5, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    requestAnimationFrame(loop);
+  }
+
+  requestAnimationFrame(loop);
+</script>
 </body>
 </html>
