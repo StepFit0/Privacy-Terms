@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="robots" content="index,follow" />
+  <title>StepForge – Delete Account</title>
+  <meta name="description" content="Request deletion of your StepForge account and associated data." />
+  <style>
+    :root {
+      --bg: #050608;
+      --card: #0b0e13;
+      --card2: #111720;
+      --text: #f6fbff;
+      --sub: #b9c5d1;
+      --muted: #8493a3;
+      --border: rgba(255,255,255,.10);
+      --cyan: #00e5ff;
+      --green: #00f5a0;
+      --danger: #ff7c7c;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% -10%, rgba(0,229,255,.15), transparent 33%),
+        linear-gradient(180deg, #0a0e13 0%, var(--bg) 58%, #030405 100%);
+      line-height: 1.65;
+    }
+    a { color: #80efff; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 34px 16px 64px; }
+    .nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .nav a {
+      color: var(--sub); text-decoration: none; font-size: 13px; font-weight: 700;
+      padding: 8px 13px; border-radius: 999px; border: 1px solid var(--border);
+      background: rgba(255,255,255,.035);
+    }
+    .nav a.current { color: #021114; border-color: transparent; background: linear-gradient(135deg,var(--green),var(--cyan)); }
+    .brand { text-align: center; margin-bottom: 22px; }
+    .brand img {
+      width: 86px; height: 86px; object-fit: contain; border-radius: 24px;
+      border: 1px solid rgba(0,229,255,.45); background: #07090c;
+      box-shadow: 0 0 36px rgba(0,229,255,.18);
+    }
+    .brand h1 { margin: 14px 0 4px; font-size: clamp(26px, 5vw, 36px); }
+    .brand p { margin: 0; color: var(--muted); font-size: 14px; }
+    .card {
+      border: 1px solid var(--border); border-radius: 26px; padding: 28px;
+      background: linear-gradient(180deg, rgba(17,23,32,.96), rgba(7,9,13,.98));
+      box-shadow: 0 24px 70px rgba(0,0,0,.48);
+    }
+    .lead {
+      border: 1px solid rgba(0,229,255,.22); border-radius: 18px; padding: 16px;
+      background: linear-gradient(135deg, rgba(0,229,255,.07), rgba(0,245,160,.04));
+      color: var(--sub); margin-bottom: 22px;
+    }
+    h2 { margin: 26px 0 10px; font-size: 20px; }
+    h2:first-of-type { margin-top: 0; }
+    p, li { color: var(--sub); font-size: 14px; }
+    ol, ul { padding-left: 22px; }
+    li { margin: 7px 0; }
+    .request {
+      margin: 18px 0; padding: 18px; border-radius: 18px;
+      border: 1px solid rgba(0,245,160,.24); background: rgba(0,245,160,.055);
+    }
+    .button {
+      display: inline-block; margin-top: 8px; padding: 12px 16px; border-radius: 12px;
+      text-decoration: none; color: #031215; font-weight: 850;
+      background: linear-gradient(135deg,var(--green),var(--cyan));
+    }
+    .security {
+      margin-top: 14px; border-left: 3px solid var(--danger); padding: 10px 14px;
+      background: rgba(255,124,124,.055); border-radius: 8px;
+    }
+    .security strong { color: #ffd3d3; }
+    .meta { color: var(--muted); font-size: 12px; margin-top: 26px; text-align: center; }
+    code { color: #e8fbff; background: rgba(255,255,255,.06); padding: 2px 5px; border-radius: 6px; }
+    @media (prefers-color-scheme: light) {
+      :root { --bg:#f4f8fb; --card:#fff; --card2:#f8fbfd; --text:#10202e; --sub:#40546a; --muted:#667b8d; --border:rgba(35,64,86,.14); }
+      body { background: radial-gradient(circle at 50% -10%,rgba(0,196,255,.15),transparent 34%),linear-gradient(180deg,#fff,#f3f8fb); }
+      .card { background: linear-gradient(180deg,#fff,#fbfdff); box-shadow: 0 24px 70px rgba(42,77,102,.14); }
+      .nav a { background: rgba(255,255,255,.9); }
+      .brand img { background:#fff; }
+      .lead { background: linear-gradient(135deg,rgba(0,229,255,.08),rgba(0,245,160,.07)); }
+      .request { background: rgba(0,180,120,.055); }
+      .security { background: rgba(220,60,60,.05); }
+      .security strong { color:#8d2626; }
+      code { color:#163849; background:rgba(20,70,95,.06); }
+    }
+    @media (max-width: 600px) { .wrap { padding-top: 18px; } .card { padding: 20px 16px; border-radius: 22px; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <nav class="nav" aria-label="StepForge legal pages">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="delete-account.html" class="current" aria-current="page">Delete Account</a>
+    </nav>
+
+    <div class="brand">
+      <img src="ic_walk.png" alt="StepForge logo" />
+      <h1>Delete your StepForge account</h1>
+      <p>Account and associated-data deletion request</p>
+    </div>
+
+    <section class="card">
+      <div class="lead">
+        You can request deletion of your <strong>StepForge</strong> account and personal data associated with that account at any time. You do not need to reinstall the app to make a request from this page.
+      </div>
+
+      <h2>How to request deletion</h2>
+      <ol>
+        <li>Send the request from the Google email address you use to sign in to StepForge whenever possible.</li>
+        <li>Use the subject <code>StepForge Account Deletion Request</code>.</li>
+        <li>Include the email address associated with your StepForge account. You may also include an optional reason, but it is not required.</li>
+        <li>We may reply to the same email address if a minimal ownership check is necessary before deleting account-linked data.</li>
+      </ol>
+
+      <div class="request">
+        <strong>Request account deletion by email</strong><br />
+        <a class="button" href="mailto:stepforge0@gmail.com?subject=StepForge%20Account%20Deletion%20Request">Email StepForge</a>
+        <p>If the button does not open your email app, send your request to <strong>stepforge0@gmail.com</strong>.</p>
+      </div>
+
+      <div class="security">
+        <strong>For your security:</strong> never send your Google password, one-time codes, authentication tokens, payment details, Health Connect records, or other sensitive health information in a deletion request. StepForge will not ask for your password.
+      </div>
+
+      <h2>What is deleted</h2>
+      <p>After a valid deletion request is verified and completed, StepForge will delete the account record, sign-in association, profile information, and other account-linked personal data that is stored under StepForge's control, where such data exists.</p>
+      <p>If StepForge has stored copies of health or activity data linked to your account, those copies under StepForge's control will also be deleted as part of the account-deletion process.</p>
+
+      <h2>Data stored only on your device</h2>
+      <p>Some StepForge data may exist only on your device. Local-only data can be removed by using the app's data-clearing controls, clearing StepForge's app storage in Android settings, or uninstalling the app. A web deletion request cannot remotely erase files that exist only on a device that StepForge cannot access.</p>
+
+      <h2>Google, Health Connect, and other services</h2>
+      <p>Deleting your StepForge account does <strong>not</strong> delete your Google Account or data independently controlled by Google, Health Connect, Samsung Health, or another third-party service. StepForge will delete data under its own control; source data held by those services must be managed through the relevant service's own settings.</p>
+
+      <h2>Retention</h2>
+      <p>StepForge does not intentionally keep deleted account or profile data after the deletion process is completed. Limited information may be retained only when required by law, or when strictly necessary for security, fraud prevention, dispute resolution, or enforcement of legal obligations. Any such retention is limited to the minimum data and period required for that purpose.</p>
+
+      <h2>Processing time</h2>
+      <p>We aim to process verified deletion requests as soon as reasonably possible. If additional verification or a legally required retention obligation applies, we will communicate that when appropriate.</p>
+
+      <h2>Need help?</h2>
+      <p>For questions about account deletion or privacy, contact <a href="mailto:stepforge0@gmail.com">stepforge0@gmail.com</a>.</p>
+    </section>
+
+    <p class="meta">StepForge account deletion resource · Last updated September 1, 2026</p>
+  </main>
+</body>
+</html>
